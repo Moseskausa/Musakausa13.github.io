@@ -1,0 +1,12 @@
+
+
+INSERT INTO `teacher` (`id`, `uname`, `pword`, `fname`, `dob`, `gender`, `email`, `subject`) VALUES
+(2, 'musa', MD5('bob123'), 'musa light', '2003-09-24', 'M', 'moses.kausa@gmail.com', 'DHIS2 Android Training');
+
+SELECT * FROM `teacher` ;
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO `student` (`id`, `uname`, `pword`, `fname`, `dob`, `gender`, `email`) VALUES
+(15, 'david', MD5('bob123'), 'David Mulemena', '1700-02-12', 'M', 'david_mulemena@zm.jsi.com');
