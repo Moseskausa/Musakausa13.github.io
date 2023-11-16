@@ -6,8 +6,12 @@ if (!isset($_SESSION["user_id"])){
 include '../config.php';
 error_reporting(0);
 
-$sql="SELECT * FROM exm_list";
-$result = mysqli_query($conn, $sql);
+//$sql="SELECT * FROM exm_list";
+
+  $course_id = $_POST['exid'];
+    // Perform further actions based on the selected category
+    
+
 
 ?>
 <!DOCTYPE html>
@@ -18,6 +22,8 @@ $result = mysqli_query($conn, $sql);
     <link rel="stylesheet" href="css/dash.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ 
    </head>
 <body>
   <div class="sidebar">
@@ -92,46 +98,39 @@ $result = mysqli_query($conn, $sql);
     <div class="home-content">
       <div class="stat-boxes">
       <div class="recent-stat box" style="padding: 0px 0px;width:100%;">
-               <table>
-                    <thead>
-                        <tr>
-                            <th>Training no.</th>
-                            <th>Training name</th>
-                            <th>Description</th>
-                            <th>No. of questions</th>
-                            <th>Added on</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $i=1;
-                        if(mysqli_num_rows($result) > 0)        
-                        {
-                            while($row = mysqli_fetch_assoc($result))
-                            {
-                        ?>
-                            <tr>
-                                 <td><?php echo $i; ?></td>
-                                <td><?php  echo $row['exname']; ?></td>
-                                <td><?php  echo $row['desp']; ?></td>
-                                <td><?php  echo $row['nq']; ?></td>
-                                <td><?php  echo $row['datetime']; ?></td>
-                                <td>
-                                    <form action="statistics_count.php" method="post">
-                                         <input type="hidden" name="exid" value="<?php echo $row['exid']; ?>">
-                                          <input type="hidden" name="trname" value="<?php echo $row['exname']; ?>">
-                                        <button class ="btnres" type="submit" name="vw_rslts" ><i class='bx bx-search-alt' ></i>Counts</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php
-                          $i++;
-                            } 
-                        }
-                        ?>
-                    </tbody>
-                </table>
+   
+
+
+          <div class="box">
+          <div class="right-side">
+         
+          <div class="brief">
+           
+           <form method="post" action="statistics.<?php  ?>">
+
+
+          <button type="submit" name="excelbutton" class="btn">back</button>
+
+          
+           </form>  
+       
+
+
+
+            <!--<button type="submit" name="excelbutton" class="btn">download</button>-->
+
+
+            
+          <div>
+            
+          </div>
+
+          </div>
+          </div>
+          
+        </div>
+
+
         </div>
       </div>
     </div>

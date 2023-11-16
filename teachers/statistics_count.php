@@ -26,6 +26,26 @@ $result = mysqli_query($conn, $sql);
     <link rel="stylesheet" href="css/dash.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script language="javascript" type="text/javascript">
+
+  function exportToExcel() {
+  var location = 'data:application/vnd.ms-excel;base64,';
+  var excelTemplate = '<html> ' +
+    '<head> ' +
+    '<meta http-equiv="content-type" content="text/plain; charset=UTF-8"/> ' +
+    '</head> ' +
+    '<body> ' +
+    document.getElementById("table-conatainer").innerHTML +
+    '</body> ' +
+    '</html>'
+  window.location.href = location + window.btoa(excelTemplate);
+
+  alert("Download to begin shortly ");
+}
+
+</script>  
+
    </head>
 <body>
   <div class="sidebar">
@@ -99,11 +119,12 @@ $result = mysqli_query($conn, $sql);
 
     <div class="home-content">
       <div class="stat-boxes">
-      <div class="recent-stat box" style="padding: 0px 0px;width:100%;">
+      <div id="table-conatainer" class="recent-stat box" style="padding: 0px 0px;width:100%;">
                <table>
                     <thead>
                         <tr>
                             <th>Training no.</th>
+                            <th>training</th>
                             <th>first name</th>
                             <th>last name</th>
                             <th>Organisation</th>
@@ -122,6 +143,7 @@ $result = mysqli_query($conn, $sql);
                         ?>
                             <tr>
                                  <td><?php echo $i; ?></td>
+                                 <td><?php echo $row['exname'];?></td>
                                 <td><?php  echo $row['firstname']; ?></td>
                                 <td><?php  echo $row['lastname']; ?></td>
                                 <td><?php  echo $row['organisation']; ?></td>
@@ -132,7 +154,7 @@ $result = mysqli_query($conn, $sql);
                                 </td>
                             </tr>
                         <?php
-                          $i++;
+                          
                             } 
                         }
                         ?>
@@ -149,9 +171,43 @@ $result = mysqli_query($conn, $sql);
           <div class="box-topic">Total number of trained participants</div>
           <div class="number"><?php  $sql="SELECT COUNT(e.exname),r.firstname, r.lastname, r.gender,r.organisation, r.district, r.duration FROM `exm_list` e
           JOIN `registeredtrainingmap` r ON r.trainingid = e.exid
-          WHERE e.exid = '$course_id'"; $result = mysqli_query($conn, $sql); $row=mysqli_fetch_array($result); echo $row['0'] ?></div>
+          WHERE e.exid = '$course_id'"; $result = mysqli_query($conn, $sql); $rows = mysqli_fetch_array($result); echo $rows['0'];?></div>
           <div class="brief">
-          <button type="submit" name="adduser" class="btn">download</button>   
+           
+           <form method="post" action="">
+
+
+          <button type="submit" name="excelbutton" class="btn" onclick="exportToExcel(this)">download</button>
+
+          <?php  
+          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Something posted
+                  
+                 if (isset($_POST['excelbutton'])) {
+
+                   
+         
+                 
+
+               } else {
+                 // Assume no data to download
+                 }
+               }                 
+
+           ?>
+           </form>  
+       
+
+
+
+            <!--<button type="submit" name="excelbutton" class="btn">download</button>-->
+
+
+            
+          <div>
+            
+          </div>
+
           </div>
           </div>
           
